@@ -125,6 +125,11 @@ contract ContractReceiver {
 contract FETCOIN is ERC223, Pausable {
     using SafeMath for uint256;
 
+    struct Offering {
+        uint256 amount;
+        uint256 locktime;
+    }
+
     string public name = "fetish coin";
     string public symbol = "FET";
     uint8 public decimals = 6;
@@ -133,6 +138,8 @@ contract FETCOIN is ERC223, Pausable {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
     mapping(address => bool) public frozenAccount;
+
+    mapping(address => mapping(address => Offering)) public offering;
 
     event Freeze(address indexed target, uint256 value);
     event Unfreeze(address indexed target, uint256 value);
@@ -326,3 +333,4 @@ contract FETCOIN is ERC223, Pausable {
 
     function() payable public {}
 }
+
